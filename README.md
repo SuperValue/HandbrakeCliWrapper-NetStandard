@@ -1,3 +1,6 @@
+Quick fix to change two-pass to multi-pass.
+Retargeted .NET 2 Standard to .NET 9 since standard is deprecated.
+
 # HandbrakeCliWrapper for NetStandard
 
 This is a basic utility that allows easy use of HandBrakeCLI from C# without having to deal with learning the command line interface. It supports the most common functions, and more are easy to add.
