@@ -80,11 +80,11 @@ namespace HandbrakeCliWrapper
         /// <summary>
         /// Whether wwo-pass encoding is enabled 
         /// </summary>
-        public bool MultiPass { get; set; } = true;
+        public bool TwoPass { get; set; } = true;
         /// <summary>
         /// Whether to enable turbo first pass when using two-pass
         /// </summary>
-        public bool TurboMultiPass { get; set; } = true;
+        public bool TurboTwoPass { get; set; } = true;
         /// <summary>
         /// The audio mixdown to apply to the output video
         /// </summary>
@@ -130,10 +130,10 @@ namespace HandbrakeCliWrapper
             sb.Append($"--{AudioTracks.Formatted()} ");
             sb.Append($"--gain {AudioGain} ");
             sb.Append($"--subtitle none ");
-            if (MultiPass)
+            if (TwoPass)
             {
                 sb.Append("--two-pass ");
-                if (TurboMultiPass && (Encoder == Encoder.x264 || Encoder == Encoder.x265))
+                if (TurboTwoPass && (Encoder == Encoder.x264 || Encoder == Encoder.x265))
                     sb.Append("--turbo ");
             }
             sb.Append($"--encoder-level {EncoderLevel.Formatted()} ");
