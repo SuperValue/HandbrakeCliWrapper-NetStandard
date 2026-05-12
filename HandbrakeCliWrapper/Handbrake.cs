@@ -136,6 +136,30 @@ namespace HandbrakeCliWrapper
             catch { }
         }
 
+        public string Scan(string inputFile)
+        {
+            if (!File.Exists(inputFile))
+                throw new HandbrakeCliWrapperException($"The input file '{inputFile}' could not be found");
+            if (Status.Converting)
+                throw new HandbrakeCliWrapperException("A conversion is already running");
+
+            string arg = $"-i \"{inputFile}\" --scan --json";
+
+            var psi = new ProcessStartInfo(_hbCliPath, arg)
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = new Process { StartInfo = psi };
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return process.ExitCode == 0 ? output : "";
+        }
+
         /// <summary>
         /// Invoked when a conversion has been completed succesfully
         /// </summary>
