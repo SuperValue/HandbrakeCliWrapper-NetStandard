@@ -11,6 +11,11 @@ namespace HandbrakeCliWrapper
     public class HandbrakeConfiguration
     {
         /// <summary>
+        /// HandbrakeCLI profile name to use (e.g., "Fast 1080p30", "Normal", "High Profile")
+        /// If set, this profile will be used. Other settings may override profile defaults.
+        /// </summary>
+        public string? Profile { get; set; }
+        /// <summary>
         /// Output container format
         /// </summary>
         public Format Format { get; set; } = Format.av_mp4;
@@ -105,6 +110,11 @@ namespace HandbrakeCliWrapper
         public override string ToString()
         {
             var sb = new StringBuilder();
+            
+            // If a profile is specified, add it first
+            if (!string.IsNullOrWhiteSpace(Profile))
+                sb.Append($"--profile \"{Profile}\" ");
+            
             sb.Append($"--format {Format} ");
             if (MaxHeight > 0)
                 sb.Append($"--maxHeight {MaxHeight} ");
