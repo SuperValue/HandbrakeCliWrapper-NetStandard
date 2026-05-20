@@ -49,7 +49,7 @@ namespace HandbrakeCliWrapper
         /// <param name="removeOriginalAfterSuccessful">Whether to remove the input file after successful transcoding</param>
         /// <returns>Awaitable task for the conversion</returns>
         public async Task Transcode(HandbrakeConfiguration config, string inputFile, string outputDirectory,
-            string outputFilename = null, bool overwriteExisting = false, bool removeOriginalAfterSuccessful = false)
+            string additionalArgs = null, string outputFilename = null, bool overwriteExisting = false, bool removeOriginalAfterSuccessful = false)
         {
             if (!File.Exists(inputFile))
                 throw new HandbrakeCliWrapperException($"The input file '{inputFile}' could not be found");
@@ -68,7 +68,7 @@ namespace HandbrakeCliWrapper
             if (File.Exists(outputFilename) && !overwriteExisting) 
                 throw new HandbrakeCliWrapperException($"The file '{outputFilename}' already exists. Set overwriteExisting to true to overwrite");
 
-            var arg = $"-i \"{inputFile}\" -o \"{outputFilename}\" {config}";
+            var arg = $"-i \"{inputFile}\" -o \"{outputFilename}\" {config} {additionalArgs}";
             
             if (!File.Exists(_hbCliPath))
             {

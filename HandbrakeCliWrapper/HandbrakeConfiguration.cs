@@ -11,10 +11,10 @@ namespace HandbrakeCliWrapper
     public class HandbrakeConfiguration
     {
         /// <summary>
-        /// HandbrakeCLI profile name to use (e.g., "Fast 1080p30", "Normal", "High Profile")
-        /// If set, this profile will be used. Other settings may override profile defaults.
+        /// HandbrakeCLI built in preset name to use (e.g., "Fast 1080p30", "Normal")
+        /// If set, this preset will be used. Other settings may override preset defaults.
         /// </summary>
-        public string? Profile { get; set; }
+        public string? Preset { get; set; }
         /// <summary>
         /// Output container format
         /// </summary>
@@ -111,9 +111,9 @@ namespace HandbrakeCliWrapper
         {
             var sb = new StringBuilder();
             
-            // If a profile is specified, add it first
-            if (!string.IsNullOrWhiteSpace(Profile))
-                sb.Append($"--profile \"{Profile}\" ");
+            // If a preset is specified, add it first
+            if (!string.IsNullOrWhiteSpace(Preset))
+                sb.Append($"--Z \"{Preset}\" ");
             
             sb.Append($"--format {Format} ");
             if (MaxHeight > 0)
